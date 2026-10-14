@@ -181,3 +181,7 @@ cd /home/ubuntu/gallery && python3 app.py &
 use multi-cloud compliance parameters ke mutabik Enterprise Secure Data Ingestion Platform ki tarah run karna tha. AWS architecture me jab data input entry points (S3 bucket interfaces) expose hote hain, to hum automated guardrails set karte hain.
 Jaise hi components deploy hote hain, pipeline me automated trigger scripts alerts capture karti hain. n8n orchestration layer in webhooks data flows ko process karti hai aur internal dashboard configurations me forward kar deti hai taaki hamare paas encryption-in-transit (SSL/TLS verification logs) aur backend integrity ka continuous SOC 2 Type II compliance evidence ready rahe."
 
+
+
+• Active State (CloudWatch): Shuruati 30 se 90 din tak logs ko AWS CloudWatch mein rakha jata hai taaki immediate debugging aur monitoring fast ho sake.
+Hum data logs ko manually database mein save nahi karte. Hamari script outputs ko seedhe AWS CloudWatch Logs mein push karti hai. Iska sabse bada security benefit yeh hai ki CloudWatch
