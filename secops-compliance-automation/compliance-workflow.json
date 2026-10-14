@@ -1,0 +1,39 @@
+{
+  "name": "SecOps-Vulnerability-Triage-SOC2-Evidence-Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "v1/cloud-alerts",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 300],
+      "id": "webhook-triage-receiver",
+      "name": "Cloud Vulnerability Webhook"
+    },
+    {
+      "parameters": {
+        "notice": "=Handshake for URL: {{ $json.body.domain }} is checked. Expiry: {{ $json.body.expiry_days }} days remaining."
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [300, 300],
+      "id": "ssl-telemetry-parser",
+      "name": "SSL Telemetry & Handshake Parser"
+    }
+  ],
+  "connections": {
+    "Cloud Vulnerability Webhook": {
+      "main": [
+        [
+          {
+            "node": "SSL Telemetry & Handshake Parser",
+            "val": 0
+          }
+        ]
+      ]
+    }
+  }
+}
