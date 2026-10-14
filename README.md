@@ -160,10 +160,24 @@ cd /home/ubuntu/gallery && python3 app.py &
 
 ---
 
-## 🤖 Note
-Flask backend code was developed with Claude AI assistance.
-AWS infrastructure was configured manually as part of learning.
+☁️ AWS Architecture Connections (How it actually works)
 
----
+1. The Ingestion Entrypoint (File Upload System):
+	• Users aapke frontend/backend ke throw AWS S3 Bucket me files upload karte hain.
+	• Kyunki external data company ke cloud system me aa raha hai, yeh sabse bada attack vector hai.
+2. The Vulnerability Trigger (Trivy/Snyk & Webhooks):
+	• Jaise hi koi user image/code file upload karta hai, ya aapka application container deploy hota hai, background me Trivy / Snyk trigger hota hai scan karne ke liye.
+	• Agar koi vulnerability milti hai, to scanning engine ek event trigger karta hai.
+3. The n8n Orchestration & Python Log Parser:
+	• Yeh security scanner alert ek AWS API Gateway ya secure webhook endpoint par POST request bhejta hai.
+	• n8n is webhook request ko sunta hai (catch karta hai).
+	• n8n aapki Python Script ko trigger karta hai jo S3 file headers, SSL/TLS certificates metrics aur infrastructure state logs ko parse (read) karti hai.
+4. The Auditable Evidence (SOC 2 Type II):
+	• Parse kiya hua security data (ki "Vulnerability immediate fix ho gayi" ya "SSL connection secure tha") AWS CloudWatch ya ek dynamic compliance logging dashboard me transparently save ho jata hai.
+	• Yeh logged data hi aapka SOC 2 Compliance ka technical proof (evidence) banta hai.
 
-*Part of my AWS learning journey 🚀*
+
+
+use multi-cloud compliance parameters ke mutabik Enterprise Secure Data Ingestion Platform ki tarah run karna tha. AWS architecture me jab data input entry points (S3 bucket interfaces) expose hote hain, to hum automated guardrails set karte hain.
+Jaise hi components deploy hote hain, pipeline me automated trigger scripts alerts capture karti hain. n8n orchestration layer in webhooks data flows ko process karti hai aur internal dashboard configurations me forward kar deti hai taaki hamare paas encryption-in-transit (SSL/TLS verification logs) aur backend integrity ka continuous SOC 2 Type II compliance evidence ready rahe."
+
